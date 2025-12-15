@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 class Program
 {
     public static List<FinancialGoal> goals = [];
+    public static List<Expense> expenses = [];
     static void AddFinancialGoal()
     {
         Console.Write("Enter goal description: ");
@@ -15,7 +16,7 @@ class Program
         if (decimal.TryParse(amountInput, out decimal amount))
         {
             FinancialGoal goal = new(
-                Name: goalName ?? "Unnamed",
+                Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
                 TargetAmount: amount
             );
 
@@ -89,7 +90,29 @@ class Program
     }
     static void AddExpense()
     {
-        Console.WriteLine("AddExpense");
+        Console.Write("Enter expense description: ");
+        string? expenseDesc = Console.ReadLine();
+
+        Console.Write("Enter category: ");
+        string? expenseCtg = Console.ReadLine();
+
+        Console.Write("Enter amount: ");
+        string? amountInput = Console.ReadLine();
+
+        if (decimal.TryParse(amountInput, out decimal amount) && amount > 0)
+        {
+            Expense expense = new(
+                Description: string.IsNullOrEmpty(expenseDesc) ? "Unnamed" : expenseDesc,
+                Category: string.IsNullOrEmpty(expenseCtg) ? "Other" : expenseCtg,
+                Amount: amount
+            );
+
+            expenses.Add(expense);
+        }
+        else
+        {
+            Console.WriteLine("Error: Amount must be a positive number!");
+        }
     }
     static void ShowAnalytics()
     {
