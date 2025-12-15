@@ -3,6 +3,10 @@
 
 A personal financial planning console application built with C# .NET that helps you track financial goals and expenses.
 
+## 📸 Preview
+
+<img width="361" height="290" alt="image" src="https://github.com/user-attachments/assets/58763695-35be-4dba-b19b-99d86b8e409b" />
+
 ## ✨ Features
 
 - **Goal Management**: Create and track financial goals with target amounts
