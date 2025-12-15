@@ -3,13 +3,32 @@ using System.Runtime.InteropServices;
 
 class Program
 {
+    public static List<FinancialGoal> goals = [];
     static void AddFinancialGoal()
     {
-        Console.WriteLine("AddFinancialGoal");
+        Console.Write("Enter goal description: ");
+        string? goalDesc = Console.ReadLine();
+
+        Console.Write("Enter target sum: ");
+        string? amountInput = Console.ReadLine();
+
+        if (decimal.TryParse(amountInput, out decimal amount))
+        {
+            FinancialGoal goal = new(
+                Name: goalDesc ?? "Unnamed",
+                TargetAmount: amount
+            );
+
+            goals.Add(goal);
+        }
+        else
+        {
+            Console.WriteLine("Error: The sum must be number!");
+        }
     }
     static void ShowGoals()
     {
-        Console.WriteLine("showGoals");
+        Console.WriteLine("ShowGoals");
     }
     static void AddExpense()
     {
