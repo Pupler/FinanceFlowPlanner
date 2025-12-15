@@ -7,7 +7,7 @@ class Program
     static void AddFinancialGoal()
     {
         Console.Write("Enter goal description: ");
-        string? goalDesc = Console.ReadLine();
+        string? goalName = Console.ReadLine();
 
         Console.Write("Enter target sum: ");
         string? amountInput = Console.ReadLine();
@@ -15,7 +15,7 @@ class Program
         if (decimal.TryParse(amountInput, out decimal amount))
         {
             FinancialGoal goal = new(
-                Name: goalDesc ?? "Unnamed",
+                Name: goalName ?? "Unnamed",
                 TargetAmount: amount
             );
 
@@ -28,7 +28,21 @@ class Program
     }
     static void ShowGoals()
     {
-        Console.WriteLine("ShowGoals");
+        if (goals.Count == 0)
+        {
+            Console.WriteLine("Goals list is empty!");
+        }
+        else
+        {
+            for (int i = 0; i < goals.Count; i++)
+            {
+                Console.WriteLine($"┌─[{i+1}]─ {goals[i].Name}");
+                Console.WriteLine($"│   Target: {goals[i].TargetAmount:C}");
+                Console.WriteLine($"│   Progress: {goals[i].CurrentAmount:C} / {goals[i].TargetAmount:C}");
+                Console.WriteLine($"│   Remaining: {goals[i].RemainingAmount:C}");
+                Console.WriteLine($"└─────────────────────────────────────");
+            }
+        }
     }
     static void AddExpense()
     {
@@ -40,10 +54,18 @@ class Program
     }
     static void Main()
     {
+        System.Globalization.CultureInfo.DefaultThreadCurrentCulture = 
+        new System.Globalization.CultureInfo("de-DE");
+    
+        System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = 
+        new System.Globalization.CultureInfo("de-DE");
+
         while (true)
         {
-            Console.WriteLine("\n╔══════════════════════════════════════╗\n║       💸 FINANCE FLOW PLANNER        ║\n╚══════════════════════════════════════╝\n");
-            Console.WriteLine("MAIN MENU:");
+            Console.WriteLine("\n╔══════════════════════════════════════╗");
+            Console.WriteLine("║       💸 FINANCE FLOW PLANNER        ║");
+            Console.WriteLine("╚══════════════════════════════════════╝");
+            Console.WriteLine("\nMAIN MENU:");
             Console.WriteLine("1. Add financial goal");
             Console.WriteLine("2. View goals");
             Console.WriteLine("3. Add expense");
