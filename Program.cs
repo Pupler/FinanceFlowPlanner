@@ -28,6 +28,10 @@ class Program
     }
     static void ShowGoals()
     {
+        Console.WriteLine("\n╔══════════════════════════════════════╗");
+        Console.WriteLine("║            📋 GOALS LIST             ║");
+        Console.WriteLine("╚══════════════════════════════════════╝");
+
         if (goals.Count == 0)
         {
             Console.WriteLine("Goals list is empty!");
@@ -41,6 +45,45 @@ class Program
                 Console.WriteLine($"│   Progress: {goals[i].CurrentAmount:C} / {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Remaining: {goals[i].RemainingAmount:C}");
                 Console.WriteLine($"└─────────────────────────────────────");
+            }
+            Console.Write("\nAdd money to some goal? (y/n): ");
+            string? add_money_input = Console.ReadLine();
+
+            if (char.TryParse(add_money_input, out char add_money) && (add_money == 'y' || add_money == 'Y'))
+            {
+                Console.Write("Enter the goal number: ");
+                string? goalNumInput = Console.ReadLine();
+
+                if (int.TryParse(goalNumInput, out int goalNum))
+                {
+                    if (goalNum < 1 || goalNum > goals.Count)
+                    {
+                        Console.WriteLine("Error: The goal doesn't exist!");
+                    }
+                    else
+                    {
+                        Console.Write("Enter sum of money: ");
+                        string? sumInput = Console.ReadLine();
+
+                        if (decimal.TryParse(sumInput, out decimal sum) && sum > 0)
+                        {
+                            goals[goalNum - 1] = goals[goalNum - 1].AddMoney(sum);
+                            Console.WriteLine($"{sum:C} was added!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Error: The sum must be a positive number!");
+                        }   
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error: Enter a number!");
+                }
+            }
+            else
+            {
+                return;
             }
         }
     }
