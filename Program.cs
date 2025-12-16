@@ -12,19 +12,28 @@ class Program
 
         Console.Write("Enter target sum: ");
         string? amountInput = Console.ReadLine();
+        
+        Console.Write("Deadline (YYYY-MM-DD) or Enter for none: ");
+        string? deadlineInput = Console.ReadLine();
 
-        if (decimal.TryParse(amountInput, out decimal amount))
+        if (DateTime.TryParse(deadlineInput, out DateTime deadline))
         {
-            FinancialGoal goal = new(
-                Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
-                TargetAmount: amount
-            );
+            if (decimal.TryParse(amountInput, out decimal amount))
+            {
+                FinancialGoal goal = new(
+                    Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
+                    TargetAmount: amount,
+                    Deadline: deadline
+                );
 
-            goals.Add(goal);
-        }
-        else
-        {
-            Console.WriteLine("Error: The sum must be number!");
+                goals.Add(goal);
+                Console.Clear();
+                Console.WriteLine("Goal was added!");
+            }
+            else
+            {
+                Console.WriteLine("Error: The sum must be number!");
+            }
         }
     }
     static void ShowGoals()
@@ -45,6 +54,7 @@ class Program
                 Console.WriteLine($"│   Target: {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Progress: {goals[i].CurrentAmount:C} / {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Remaining: {goals[i].RemainingAmount:C}");
+                Console.WriteLine($"│   Deadline: {goals[i].Deadline}");
                 Console.WriteLine($"└─────────────────────────────────────");
             }
             Console.Write("\nAdd money to some goal? (y/n): ");
@@ -108,6 +118,8 @@ class Program
             );
 
             expenses.Add(expense);
+            Console.Clear();
+            Console.WriteLine("Expense was added!");
         }
         else
         {
@@ -163,7 +175,8 @@ class Program
                         Console.WriteLine("Error: Wrong menu index!");
                         break;
                 }
-            } else
+            }
+            else
             {
                 Console.WriteLine("Error: Write a number!");
             }
