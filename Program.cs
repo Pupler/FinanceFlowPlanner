@@ -126,6 +126,10 @@ class Program
             Console.WriteLine("Error: Amount must be a positive number!");
         }
     }
+    static void ShowExpenses()
+    {
+        Console.WriteLine("ShowExpenses");
+    }
     static void ShowAnalytics()
     {
         Console.WriteLine("ShowAnalytics");
@@ -147,7 +151,8 @@ class Program
             Console.WriteLine("1. Add financial goal");
             Console.WriteLine("2. View goals");
             Console.WriteLine("3. Add expense");
-            Console.WriteLine("4. Show analytics");
+            Console.WriteLine("4. Show expenses");
+            Console.WriteLine("5. Show analytics");
             Console.WriteLine("0. Exit");
             Console.Write("\nChoose option: ");
             string? input = Console.ReadLine();
@@ -169,6 +174,9 @@ class Program
                         AddExpense();
                         break;
                     case 4:
+                        ShowExpenses();
+                        break;
+                    case 5:
                         ShowAnalytics();
                         break;
                     default:
