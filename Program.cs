@@ -54,7 +54,7 @@ class Program
                 Console.WriteLine($"│   Target: {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Progress: {goals[i].CurrentAmount:C} / {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Remaining: {goals[i].RemainingAmount:C}");
-                Console.WriteLine($"│   Deadline: {goals[i].Deadline}");
+                Console.WriteLine($"│   Deadline: {goals[i].DeadlineDisplay}");
                 Console.WriteLine($"└─────────────────────────────────────");
             }
             Console.Write("\nAdd money to some goal? (y/n): ");
