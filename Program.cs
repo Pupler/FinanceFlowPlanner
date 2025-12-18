@@ -16,7 +16,7 @@ class Program
         Console.Write("Deadline (YYYY-MM-DD) or Enter for none: ");
         string? deadlineInput = Console.ReadLine();
 
-        DateTime? deadLine = null;
+        DateTime? deadline = null;
 
         if (!string.IsNullOrWhiteSpace(deadlineInput))
         {
@@ -26,14 +26,14 @@ class Program
                 return;
             }
 
-            deadLine = parsedDeadline;
+            deadline = parsedDeadline;
         }
         if (decimal.TryParse(amountInput, out decimal amount))
         {
             FinancialGoal goal = new(
                 Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
                 TargetAmount: amount,
-                Deadline: deadLine
+                Deadline: deadline
             );
 
             goals.Add(goal);
