@@ -16,24 +16,33 @@ class Program
         Console.Write("Deadline (YYYY-MM-DD) or Enter for none: ");
         string? deadlineInput = Console.ReadLine();
 
-        if (DateTime.TryParse(deadlineInput, out DateTime deadline))
-        {
-            if (decimal.TryParse(amountInput, out decimal amount))
-            {
-                FinancialGoal goal = new(
-                    Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
-                    TargetAmount: amount,
-                    Deadline: deadline
-                );
+        DateTime? deadLine = null;
 
-                goals.Add(goal);
-                Console.Clear();
-                Console.WriteLine("Goal was added!");
-            }
-            else
+        if (!string.IsNullOrWhiteSpace(deadlineInput))
+        {
+            if (!DateTime.TryParse(deadlineInput, out DateTime parsedDeadline))
             {
-                Console.WriteLine("Error: The sum must be number!");
+                Console.WriteLine("Error: Invalid deadline format!");
+                return;
             }
+
+            deadLine = parsedDeadline;
+        }
+        if (decimal.TryParse(amountInput, out decimal amount))
+        {
+            FinancialGoal goal = new(
+                Name: string.IsNullOrEmpty(goalName) ? "Unnamed" : goalName,
+                TargetAmount: amount,
+                Deadline: deadLine
+            );
+
+            goals.Add(goal);
+            Console.Clear();
+            Console.WriteLine("Goal was added!");
+        }
+        else
+        {
+            Console.WriteLine("Error: The sum must be number!");
         }
     }
     static void ShowGoals()
