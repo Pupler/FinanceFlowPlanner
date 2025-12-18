@@ -12,7 +12,7 @@ class Program
 
         Console.Write("Enter target sum: ");
         string? amountInput = Console.ReadLine();
-        
+
         Console.Write("Deadline (YYYY-MM-DD) or Enter for none: ");
         string? deadlineInput = Console.ReadLine();
 
@@ -50,7 +50,7 @@ class Program
         {
             for (int i = 0; i < goals.Count; i++)
             {
-                Console.WriteLine($"┌─[{i+1}]─ {goals[i].Name}");
+                Console.WriteLine($"┌─[{i + 1}]─ {goals[i].Name}");
                 Console.WriteLine($"│   Target: {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Progress: {goals[i].CurrentAmount:C} / {goals[i].TargetAmount:C}");
                 Console.WriteLine($"│   Remaining: {goals[i].RemainingAmount:C}");
@@ -84,7 +84,7 @@ class Program
                         else
                         {
                             Console.WriteLine("Error: The sum must be a positive number!");
-                        }   
+                        }
                     }
                 }
                 else
@@ -128,7 +128,26 @@ class Program
     }
     static void ShowExpenses()
     {
-        Console.WriteLine("ShowExpenses");
+        Console.WriteLine("\n╔══════════════════════════════════════╗");
+        Console.WriteLine("║            📋 EXPENSES LIST            ║");
+        Console.WriteLine("╚══════════════════════════════════════╝");
+
+        if (expenses.Count == 0)
+        {
+            Console.WriteLine("Expenses list is empty!");
+        }
+        else
+        {
+            for (int i = 0; i < expenses.Count; i++)
+            {
+                Console.WriteLine($"┌─[{i + 1}]─ Expense");
+                Console.WriteLine($"│   Description: {expenses[i].Description}");
+                Console.WriteLine($"│   Category: {expenses[i].Category}");
+                Console.WriteLine($"│   Amount: {expenses[i].Amount:C}");
+                Console.WriteLine($"│   Date: {expenses[i].Date}");
+                Console.WriteLine($"└─────────────────────────────────────");
+            }
+        }
     }
     static void ShowAnalytics()
     {
@@ -136,10 +155,10 @@ class Program
     }
     static void Main()
     {
-        System.Globalization.CultureInfo.DefaultThreadCurrentCulture = 
+        System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
         new System.Globalization.CultureInfo("de-DE");
-    
-        System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = 
+
+        System.Globalization.CultureInfo.DefaultThreadCurrentUICulture =
         new System.Globalization.CultureInfo("de-DE");
 
         while (true)
@@ -156,7 +175,7 @@ class Program
             Console.WriteLine("0. Exit");
             Console.Write("\nChoose option: ");
             string? input = Console.ReadLine();
-            
+
             if (int.TryParse(input, out int choice))
             {
                 switch (choice)
