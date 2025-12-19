@@ -118,12 +118,28 @@ class Program
         Console.Write("Enter amount: ");
         string? amountInput = Console.ReadLine();
 
+        Console.Write("Enter date (YYYY-MM-DD) or Enter for today: ");
+        string? dateInput = Console.ReadLine();
+
+        DateTime? date = null;
+
+        if (!string.IsNullOrWhiteSpace(dateInput))
+        {
+            if (!DateTime.TryParse(dateInput, out DateTime parsedDate))
+            {
+                Console.WriteLine("Error: Invalid date format!");
+                return;
+            }
+
+            date = parsedDate;
+        }
         if (decimal.TryParse(amountInput, out decimal amount) && amount > 0)
         {
             Expense expense = new(
                 Description: string.IsNullOrEmpty(expenseDesc) ? "Unnamed" : expenseDesc,
                 Category: string.IsNullOrEmpty(expenseCtg) ? "Other" : expenseCtg,
-                Amount: amount
+                Amount: amount,
+                Date: date
             );
 
             expenses.Add(expense);
@@ -153,7 +169,7 @@ class Program
                 Console.WriteLine($"│   Description: {expenses[i].Description}");
                 Console.WriteLine($"│   Category: {expenses[i].Category}");
                 Console.WriteLine($"│   Amount: {expenses[i].Amount:C}");
-                Console.WriteLine($"│   Date: {expenses[i].Date}");
+                Console.WriteLine($"│   Date: {expenses[i].DateDisplay}");
                 Console.WriteLine($"└─────────────────────────────────────");
             }
         }

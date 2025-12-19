@@ -4,17 +4,10 @@ public record Expense(
     string Description,
     string Category,
     decimal Amount,
-    DateTime Date = default
+    DateTime? Date = null
 )
 {
-    public DateTime EffectiveDate 
-    {
-        get 
-        {
-            if (Date == default)
-                return DateTime.Now;
-            else
-                return Date;
-        }
-    }
+    public DateTime EffectiveDate => Date ?? DateTime.Now;
+    
+    public string DateDisplay => EffectiveDate.ToString("d");
 }
