@@ -153,6 +153,8 @@ class Program
     }
     static void ShowExpenses()
     {
+        decimal TotalExpensesSum = 0;
+
         Console.WriteLine("\n╔══════════════════════════════════════╗");
         Console.WriteLine("║           📋 EXPENSES LIST           ║");
         Console.WriteLine("╚══════════════════════════════════════╝");
@@ -171,12 +173,18 @@ class Program
                 Console.WriteLine($"│   Amount: {expenses[i].Amount:C}");
                 Console.WriteLine($"│   Date: {expenses[i].DateDisplay}");
                 Console.WriteLine($"└─────────────────────────────────────");
+
+                TotalExpensesSum += expenses[i].Amount;
             }
+
+            Console.WriteLine($"Total spent: {TotalExpensesSum:C}");
         }
     }
     static void ShowAnalytics()
     {
-        Console.WriteLine("ShowAnalytics");
+        Console.WriteLine("\n╔══════════════════════════════════════╗");
+        Console.WriteLine("║             📋 ANALYTICS             ║");
+        Console.WriteLine("╚══════════════════════════════════════╝");
     }
     static void Main()
     {
