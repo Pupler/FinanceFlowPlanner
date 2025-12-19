@@ -5,7 +5,7 @@ A personal financial planning console application built with C# .NET that helps 
 
 ## 📸 Preview
 
-<img width="361" height="290" alt="image" src="https://github.com/user-attachments/assets/58763695-35be-4dba-b19b-99d86b8e409b" />
+<img width="423" height="540" alt="image" src="https://github.com/user-attachments/assets/7def890d-3077-42ff-9c15-36f1664c26ba" />
 
 ## ✨ Features
 
