@@ -38,7 +38,7 @@ class Program
 
             goals.Add(goal);
             Console.Clear();
-            Console.WriteLine("Goal was added!");
+            Console.WriteLine("✅ Goal was added!");
         }
         else
         {
@@ -144,7 +144,7 @@ class Program
 
             expenses.Add(expense);
             Console.Clear();
-            Console.WriteLine("Expense was added!");
+            Console.WriteLine("✅ Expense was added!");
         }
         else
         {
@@ -183,8 +183,16 @@ class Program
     static void ShowAnalytics()
     {
         Console.WriteLine("\n╔══════════════════════════════════════╗");
-        Console.WriteLine("║             📋 ANALYTICS             ║");
+        Console.WriteLine("║             📊 ANALYTICS             ║");
         Console.WriteLine("╚══════════════════════════════════════╝");
+
+        if (expenses.Count == 0)
+        {
+            Console.WriteLine("No expenses to analyze yet!");
+            return;
+        }
+
+        Console.WriteLine("IN DEVELOPING...");
     }
     static void Main()
     {
