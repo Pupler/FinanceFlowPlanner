@@ -236,23 +236,19 @@ class Program
                 if (expense.Category == category)
                 {
                     categoryTotal += expense.Amount;
-
-                    if (categoryTotal > maxAmount)
-                    {
-                        maxAmount = categoryTotal;
-                    }
                 }
+            }
+
+            if (categoryTotal > maxAmount)
+            {
+                maxAmount = categoryTotal;
+                topCtg = category;
             }
 
             if (categoryTotal > 0)
             {
                 decimal percentageCtg = categoryTotal / allExpensesTotal;
                 Console.WriteLine($"{category}: {categoryTotal:C} ({percentageCtg:P2})");
-            }
-
-            if (categoryTotal == maxAmount)
-            {
-                topCtg = category;
             }
         }
 
