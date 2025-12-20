@@ -184,6 +184,15 @@ class Program
     }
     static void ShowAnalytics()
     {
+        // TEST
+        // expenses.Add(new Expense("Burger", ExpenseCategory.Food, 12, DateTime.Now));
+        // expenses.Add(new Expense("Bus", ExpenseCategory.Transport, 3, DateTime.Now));
+        // expenses.Add(new Expense("Netflix", ExpenseCategory.Entertainment, 15, DateTime.Now));
+        // expenses.Add(new Expense("Rent", ExpenseCategory.Bills, 500, DateTime.Now));
+        // expenses.Add(new Expense("T-shirt", ExpenseCategory.Shopping, 25, DateTime.Now));
+        // expenses.Add(new Expense("Pills", ExpenseCategory.Health, 8, DateTime.Now));
+        // expenses.Add(new Expense("Gift", ExpenseCategory.Other, 30, DateTime.Now));
+
         Console.WriteLine("\n╔══════════════════════════════════════╗");
         Console.WriteLine("║             📊 ANALYTICS             ║");
         Console.WriteLine("╚══════════════════════════════════════╝");
@@ -192,6 +201,12 @@ class Program
         {
             Console.WriteLine("No expenses to analyze yet!");
             return;
+        }
+
+        decimal allExpensesTotal = 0;
+        foreach (var expense in expenses)
+        {
+            allExpensesTotal += expense.Amount;
         }
 
         foreach (ExpenseCategory category in Enum.GetValues(typeof(ExpenseCategory)))
@@ -208,7 +223,8 @@ class Program
 
             if (categoryTotal > 0)
             {
-                Console.WriteLine($"{category}: {categoryTotal:C}");
+                decimal percentageCtg = categoryTotal / allExpensesTotal;
+                Console.WriteLine($"{category}: {categoryTotal:C} ({percentageCtg:P2})");
             }
         }
     }
