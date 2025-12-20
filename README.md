@@ -9,12 +9,13 @@ A personal financial planning console application built with C# .NET that helps 
 
 ## ✨ Features
 
-- **Financial Goals**: Set savings targets with deadlines and track progress
-- **Expense Tracking**: Log transactions with categories and dates  
-- **Expense Summary**: View total spending amount at a glance
+- **Financial Goals**: Set savings targets with deadlines and track progress  
+- **Expense Tracking**: Log transactions with 7 predefined categories and dates
+- **Spending Analytics**: View breakdown by category with percentages and totals
 - **Interactive Interface**: Add money to goals directly from the goals list
 - **Keyboard Navigation**: Console-based, mouse-free experience
-- **Multi-Currency Support**: Euro formatting with localization
+- **Multi-Currency Support**: Euro formatting with German localization
+- **Data Validation**: Input checking for dates, amounts, and categories
 
 ## 🛠️ Technology Stack
 
