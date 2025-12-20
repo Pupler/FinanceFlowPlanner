@@ -194,7 +194,23 @@ class Program
             return;
         }
 
-        Console.WriteLine("IN DEVELOPING...");
+        foreach (ExpenseCategory category in Enum.GetValues(typeof(ExpenseCategory)))
+        {
+            decimal categoryTotal = 0;
+
+            foreach (var expense in expenses)
+            {
+                if (expense.Category == category)
+                {
+                    categoryTotal += expense.Amount;
+                }
+            }
+
+            if (categoryTotal > 0)
+            {
+                Console.WriteLine($"{category}: {categoryTotal:C}");
+            }
+        }
     }
     static void Main()
     {
