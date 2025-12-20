@@ -112,8 +112,9 @@ class Program
         Console.Write("Enter expense description: ");
         string? expenseDesc = Console.ReadLine();
 
-        Console.Write("Enter category: ");
-        string? expenseCtg = Console.ReadLine();
+        Console.WriteLine("Categories: 1.Food 2.Transport 3.Entertainment 4.Bills 5.Shopping 6.Health 7.Other");
+        Console.Write("Choose category (1-7): ");
+        string? categoryInput = Console.ReadLine();
 
         Console.Write("Enter amount: ");
         string? amountInput = Console.ReadLine();
@@ -133,11 +134,12 @@ class Program
 
             date = parsedDate;
         }
-        if (decimal.TryParse(amountInput, out decimal amount) && amount > 0)
+        if (int.TryParse(categoryInput, out int categoryNum) && (categoryNum >=1) && (categoryNum <=7) &&
+        decimal.TryParse(amountInput, out decimal amount) && amount > 0)
         {
             Expense expense = new(
                 Description: string.IsNullOrEmpty(expenseDesc) ? "Unnamed" : expenseDesc,
-                Category: string.IsNullOrEmpty(expenseCtg) ? "Other" : expenseCtg,
+                Category: (ExpenseCategory)(categoryNum - 1),
                 Amount: amount,
                 Date: date
             );
@@ -148,7 +150,7 @@ class Program
         }
         else
         {
-            Console.WriteLine("Error: Amount must be a positive number!");
+            Console.WriteLine("Error: Invalid category or amount input!");
         }
     }
     static void ShowExpenses()

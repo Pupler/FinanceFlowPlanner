@@ -2,7 +2,7 @@ using System.Security;
 
 public record Expense(
     string Description,
-    string Category,
+    ExpenseCategory Category,
     decimal Amount,
     DateTime? Date = null
 )
