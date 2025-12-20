@@ -1,10 +1,26 @@
 ﻿using System;
+using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
 
 class Program
 {
     public static List<FinancialGoal> goals = [];
     public static List<Expense> expenses = [];
+
+    static void showMenu()
+    {
+        Console.WriteLine("\n╔══════════════════════════════════════╗");
+        Console.WriteLine("║       💸 FINANCE FLOW PLANNER        ║");
+        Console.WriteLine("╚══════════════════════════════════════╝");
+        Console.WriteLine("\nMAIN MENU:");
+        Console.WriteLine("1. Add financial goal");
+        Console.WriteLine("2. View goals");
+        Console.WriteLine("3. Add expense");
+        Console.WriteLine("4. View expenses");
+        Console.WriteLine("5. Show analytics");
+        Console.WriteLine("0. Exit");
+        Console.Write("\nChoose option: ");
+    }
     static void AddFinancialGoal()
     {
         Console.Write("Enter goal description: ");
@@ -185,13 +201,13 @@ class Program
     static void ShowAnalytics()
     {
         // TEST
-        // expenses.Add(new Expense("Burger", ExpenseCategory.Food, 12, DateTime.Now));
-        // expenses.Add(new Expense("Bus", ExpenseCategory.Transport, 3, DateTime.Now));
-        // expenses.Add(new Expense("Netflix", ExpenseCategory.Entertainment, 15, DateTime.Now));
-        // expenses.Add(new Expense("Rent", ExpenseCategory.Bills, 500, DateTime.Now));
-        // expenses.Add(new Expense("T-shirt", ExpenseCategory.Shopping, 25, DateTime.Now));
-        // expenses.Add(new Expense("Pills", ExpenseCategory.Health, 8, DateTime.Now));
-        // expenses.Add(new Expense("Gift", ExpenseCategory.Other, 30, DateTime.Now));
+        //expenses.Add(new Expense("Burger", ExpenseCategory.Food, 12, DateTime.Now));
+        //expenses.Add(new Expense("Bus", ExpenseCategory.Transport, 3, DateTime.Now));
+        //expenses.Add(new Expense("Netflix", ExpenseCategory.Entertainment, 15, DateTime.Now));
+        //expenses.Add(new Expense("Rent", ExpenseCategory.Bills, 500, DateTime.Now));
+        //expenses.Add(new Expense("T-shirt", ExpenseCategory.Shopping, 25, DateTime.Now));
+       // expenses.Add(new Expense("Pills", ExpenseCategory.Health, 8, DateTime.Now));
+        //expenses.Add(new Expense("Gift", ExpenseCategory.Other, 30, DateTime.Now));
 
         Console.WriteLine("\n╔══════════════════════════════════════╗");
         Console.WriteLine("║             📊 ANALYTICS             ║");
@@ -203,6 +219,8 @@ class Program
             return;
         }
 
+        ExpenseCategory topCtg = ExpenseCategory.Other;
+        decimal maxAmount = 0;
         decimal allExpensesTotal = 0;
         foreach (var expense in expenses)
         {
@@ -218,6 +236,11 @@ class Program
                 if (expense.Category == category)
                 {
                     categoryTotal += expense.Amount;
+
+                    if (categoryTotal > maxAmount)
+                    {
+                        maxAmount = categoryTotal;
+                    }
                 }
             }
 
@@ -226,8 +249,16 @@ class Program
                 decimal percentageCtg = categoryTotal / allExpensesTotal;
                 Console.WriteLine($"{category}: {categoryTotal:C} ({percentageCtg:P2})");
             }
+
+            if (categoryTotal == maxAmount)
+            {
+                topCtg = category;
+            }
         }
+
+        Console.WriteLine($"\n🏆 Top category: {topCtg}");
     }
+
     static void Main()
     {
         System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
@@ -238,17 +269,7 @@ class Program
 
         while (true)
         {
-            Console.WriteLine("\n╔══════════════════════════════════════╗");
-            Console.WriteLine("║       💸 FINANCE FLOW PLANNER        ║");
-            Console.WriteLine("╚══════════════════════════════════════╝");
-            Console.WriteLine("\nMAIN MENU:");
-            Console.WriteLine("1. Add financial goal");
-            Console.WriteLine("2. View goals");
-            Console.WriteLine("3. Add expense");
-            Console.WriteLine("4. View expenses");
-            Console.WriteLine("5. Show analytics");
-            Console.WriteLine("0. Exit");
-            Console.Write("\nChoose option: ");
+            showMenu();
             string? input = Console.ReadLine();
 
             if (int.TryParse(input, out int choice))
