@@ -122,6 +122,7 @@ class Program
                             goals[goalNum - 1] = goals[goalNum - 1].AddMoney(sum);
                             Console.Clear();
                             PrintColor($"✅ {sum:C} was added!", ConsoleColor.Green);
+                            return;
                         }
                         else
                         {
@@ -136,8 +137,10 @@ class Program
                     PrintColor("❌ Error: Enter a number!", ConsoleColor.Red);
                 }
             }
-
-            Console.Clear();
+            else
+            {
+                Console.Clear();
+            }
         }
     }
 
