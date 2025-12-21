@@ -241,7 +241,10 @@ class Program
 
         ExpenseCategory topCtg = ExpenseCategory.Other;
         decimal maxAmount = 0;
+        decimal minExpense = decimal.MaxValue;
+        decimal maxExpense = 0;
         decimal allExpensesTotal = 0;
+        decimal averageExpenseSum;
         foreach (var expense in expenses)
         {
             allExpensesTotal += expense.Amount;
@@ -257,6 +260,16 @@ class Program
                 {
                     categoryTotal += expense.Amount;
                 }
+
+                if (expense.Amount > maxExpense)
+                {
+                    maxExpense = expense.Amount;
+                }
+
+                if (expense.Amount < minExpense)
+                {
+                    minExpense = expense.Amount;
+                }
             }
 
             if (categoryTotal > maxAmount)
@@ -265,6 +278,7 @@ class Program
                 topCtg = category;
             }
 
+
             if (categoryTotal > 0)
             {
                 decimal percentageCtg = categoryTotal / allExpensesTotal;
@@ -272,6 +286,12 @@ class Program
             }
         }
 
+        averageExpenseSum = allExpensesTotal / expenses.Count;
+
+        Console.WriteLine($"\n🧾 Transactions: {expenses.Count}");
+        Console.WriteLine($"⚖️ Average: {averageExpenseSum:C}");
+        Console.WriteLine($"🔺 Max spent: {maxExpense:C}");
+        Console.WriteLine($"🔻 Min spent: {minExpense:C}");
         Console.Write("\n🏆 Top category: ");
         PrintColor($"{topCtg}", ConsoleColor.DarkYellow);
     }
