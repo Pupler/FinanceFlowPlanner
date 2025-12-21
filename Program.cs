@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Diagnostics.Tracing;
 using System.Runtime.InteropServices;
+using Microsoft.VisualBasic;
 
 class Program
 {
+    static void PrintColor(string text, ConsoleColor color)
+    {
+        Console.ForegroundColor = color;
+        Console.WriteLine(text);
+        Console.ResetColor();
+    }
+
     public static List<FinancialGoal> goals = [];
+
     public static List<Expense> expenses = [];
 
     static void showMenu()
     {
-        Console.WriteLine("\n╔══════════════════════════════════════╗");
-        Console.WriteLine("║       💸 FINANCE FLOW PLANNER        ║");
-        Console.WriteLine("╚══════════════════════════════════════╝");
+        PrintColor("\n╔══════════════════════════════════════╗", ConsoleColor.Green);
+        PrintColor("║       💸 FINANCE FLOW PLANNER        ║", ConsoleColor.Green);
+        PrintColor("╚══════════════════════════════════════╝", ConsoleColor.Green);
         Console.WriteLine("\nMAIN MENU:");
         Console.WriteLine("1. Add financial goal");
         Console.WriteLine("2. View goals");
@@ -21,6 +30,7 @@ class Program
         Console.WriteLine("0. Exit");
         Console.Write("\nChoose option: ");
     }
+
     static void AddFinancialGoal()
     {
         Console.Write("Enter goal description: ");
@@ -38,7 +48,8 @@ class Program
         {
             if (!DateTime.TryParse(deadlineInput, out DateTime parsedDeadline))
             {
-                Console.WriteLine("Error: Invalid deadline format!");
+                Console.Clear();
+                PrintColor("❌ Error: Invalid deadline format!", ConsoleColor.Red);
                 return;
             }
 
@@ -54,22 +65,26 @@ class Program
 
             goals.Add(goal);
             Console.Clear();
-            Console.WriteLine("✅ Goal was added!");
+            PrintColor("✅ Goal was added!", ConsoleColor.Green);
         }
         else
         {
-            Console.WriteLine("Error: The sum must be number!");
+            Console.Clear();
+            PrintColor("❌ Error: The sum must be number!", ConsoleColor.Red);
         }
     }
+
     static void ShowGoals()
     {
-        Console.WriteLine("\n╔══════════════════════════════════════╗");
-        Console.WriteLine("║            📋 GOALS LIST             ║");
-        Console.WriteLine("╚══════════════════════════════════════╝");
+        Console.Clear();
+        PrintColor("\n╔══════════════════════════════════════╗", ConsoleColor.DarkBlue);
+        PrintColor("║            📋 GOALS LIST             ║", ConsoleColor.DarkBlue);
+        PrintColor("╚══════════════════════════════════════╝", ConsoleColor.DarkBlue);
 
         if (goals.Count == 0)
         {
-            Console.WriteLine("Goals list is empty!");
+            Console.Clear();
+            PrintColor("⚠️ Goals list is empty!", ConsoleColor.Yellow);
         }
         else
         {
@@ -94,7 +109,8 @@ class Program
                 {
                     if (goalNum < 1 || goalNum > goals.Count)
                     {
-                        Console.WriteLine("Error: The goal doesn't exist!");
+                        Console.Clear();
+                        PrintColor("❌ Error: The goal doesn't exist!", ConsoleColor.Red);
                     }
                     else
                     {
@@ -104,25 +120,27 @@ class Program
                         if (decimal.TryParse(sumInput, out decimal sum) && sum > 0)
                         {
                             goals[goalNum - 1] = goals[goalNum - 1].AddMoney(sum);
-                            Console.WriteLine($"{sum:C} was added!");
+                            Console.Clear();
+                            PrintColor($"✅ {sum:C} was added!", ConsoleColor.Green);
                         }
                         else
                         {
-                            Console.WriteLine("Error: The sum must be a positive number!");
+                            Console.Clear();
+                            PrintColor("❌ Error: The sum must be a positive number!", ConsoleColor.Red);
                         }
                     }
                 }
                 else
                 {
-                    Console.WriteLine("Error: Enter a number!");
+                    Console.Clear();
+                    PrintColor("❌ Error: Enter a number!", ConsoleColor.Red);
                 }
             }
-            else
-            {
-                return;
-            }
+
+            Console.Clear();
         }
     }
+
     static void AddExpense()
     {
         Console.Write("Enter expense description: ");
@@ -144,7 +162,8 @@ class Program
         {
             if (!DateTime.TryParse(dateInput, out DateTime parsedDate))
             {
-                Console.WriteLine("Error: Invalid date format!");
+                Console.Clear();
+                PrintColor("❌ Error: Invalid date format!", ConsoleColor.Red);
                 return;
             }
 
@@ -162,31 +181,34 @@ class Program
 
             expenses.Add(expense);
             Console.Clear();
-            Console.WriteLine("✅ Expense was added!");
+            PrintColor("✅ Expense was added!", ConsoleColor.Green);
         }
         else
         {
-            Console.WriteLine("Error: Invalid category or amount input!");
+            Console.Clear();
+            PrintColor("❌ Error: Invalid category or amount input!", ConsoleColor.Red);
         }
     }
+
     static void ShowExpenses()
     {
         decimal TotalExpensesSum = 0;
 
-        Console.WriteLine("\n╔══════════════════════════════════════╗");
-        Console.WriteLine("║           📋 EXPENSES LIST           ║");
-        Console.WriteLine("╚══════════════════════════════════════╝");
+        Console.Clear();
+        PrintColor("\n╔══════════════════════════════════════╗", ConsoleColor.DarkBlue);
+        PrintColor("║           📋 EXPENSES LIST           ║", ConsoleColor.DarkBlue);
+        PrintColor("╚══════════════════════════════════════╝", ConsoleColor.DarkBlue);
 
         if (expenses.Count == 0)
         {
-            Console.WriteLine("Expenses list is empty!");
+            Console.Clear();
+            PrintColor("⚠️ Expenses list is empty!", ConsoleColor.Yellow);
         }
         else
         {
             for (int i = 0; i < expenses.Count; i++)
             {
-                Console.WriteLine($"┌─[{i + 1}]─ Expense");
-                Console.WriteLine($"│   Description: {expenses[i].Description}");
+                Console.WriteLine($"┌─[{i + 1}]─ {expenses[i].Description}");
                 Console.WriteLine($"│   Category: {expenses[i].Category}");
                 Console.WriteLine($"│   Amount: {expenses[i].Amount:C}");
                 Console.WriteLine($"│   Date: {expenses[i].DateDisplay}");
@@ -195,27 +217,22 @@ class Program
                 TotalExpensesSum += expenses[i].Amount;
             }
 
-            Console.WriteLine($"Total spent: {TotalExpensesSum:C}");
+            Console.Write("Total spent: ");
+            PrintColor($"{TotalExpensesSum:C}", ConsoleColor.DarkGreen);
         }
     }
+
     static void ShowAnalytics()
     {
-        // TEST
-        //expenses.Add(new Expense("Burger", ExpenseCategory.Food, 12, DateTime.Now));
-        //expenses.Add(new Expense("Bus", ExpenseCategory.Transport, 3, DateTime.Now));
-        //expenses.Add(new Expense("Netflix", ExpenseCategory.Entertainment, 15, DateTime.Now));
-        //expenses.Add(new Expense("Rent", ExpenseCategory.Bills, 500, DateTime.Now));
-        //expenses.Add(new Expense("T-shirt", ExpenseCategory.Shopping, 25, DateTime.Now));
-       // expenses.Add(new Expense("Pills", ExpenseCategory.Health, 8, DateTime.Now));
-        //expenses.Add(new Expense("Gift", ExpenseCategory.Other, 30, DateTime.Now));
-
-        Console.WriteLine("\n╔══════════════════════════════════════╗");
-        Console.WriteLine("║             📊 ANALYTICS             ║");
-        Console.WriteLine("╚══════════════════════════════════════╝");
+        Console.Clear();
+        PrintColor("\n╔══════════════════════════════════════╗", ConsoleColor.Magenta);
+        PrintColor("║             📊 ANALYTICS             ║", ConsoleColor.Magenta);
+        PrintColor("╚══════════════════════════════════════╝", ConsoleColor.Magenta);
 
         if (expenses.Count == 0)
         {
-            Console.WriteLine("No expenses to analyze yet!");
+            Console.Clear();
+            PrintColor("⚠️ No expenses to analyze yet!", ConsoleColor.Yellow);
             return;
         }
 
@@ -252,7 +269,8 @@ class Program
             }
         }
 
-        Console.WriteLine($"\n🏆 Top category: {topCtg}");
+        Console.Write("\n🏆 Top category: ");
+        PrintColor($"{topCtg}", ConsoleColor.DarkYellow);
     }
 
     static void Main()
@@ -291,13 +309,15 @@ class Program
                         ShowAnalytics();
                         break;
                     default:
-                        Console.WriteLine("Error: Wrong menu index!");
+                        Console.Clear();
+                        PrintColor("⚠️ Wrong menu index!", ConsoleColor.Yellow);
                         break;
                 }
             }
             else
             {
-                Console.WriteLine("Error: Write a number!");
+                Console.Clear();
+                PrintColor("❌ Error: Write a number!", ConsoleColor.Red);
             }
         }
     }
