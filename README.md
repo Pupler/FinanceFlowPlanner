@@ -1,5 +1,4 @@
 # 💸 Finance Flow Planner
-**[🚧 UNDER DEVELOPMENT]**
 
 A personal financial planning console application built with C# .NET that helps you track financial goals and expenses.
 
@@ -11,6 +10,11 @@ A personal financial planning console application built with C# .NET that helps 
 #### ```Goals Tracking - Progress visualization with deadlines```
 <img width="358" height="385" alt="image" src="https://github.com/user-attachments/assets/9397f32f-ef6c-4d0a-a040-8cd96cd3f769" />
 
+#### ```Expense Management - Category-based tracking```
+<img width="353" height="514" alt="image" src="https://github.com/user-attachments/assets/6417d228-9c58-4688-8f89-1c02e57f9b8d" />
+
+#### ```Financial Analytics - Spending breakdown by category with visual statistics```
+<img width="356" height="375" alt="image" src="https://github.com/user-attachments/assets/482447d0-bc00-47be-977f-33167cced8dc" />
 
 ## ✨ Features
 
