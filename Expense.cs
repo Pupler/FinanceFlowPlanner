@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 
-public record Expense(
+public record Expense
+(
     [property: JsonPropertyName("description")] string Description,
     [property: JsonPropertyName("category")] ExpenseCategory Category,
     [property: JsonPropertyName("amount")] decimal Amount,
