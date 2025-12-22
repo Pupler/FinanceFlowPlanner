@@ -1,10 +1,10 @@
-using System.Security;
+using System.Text.Json.Serialization;
 
 public record Expense(
-    string Description,
-    ExpenseCategory Category,
-    decimal Amount,
-    DateTime? Date = null
+    [property: JsonPropertyName("description")] string Description,
+    [property: JsonPropertyName("category")] ExpenseCategory Category,
+    [property: JsonPropertyName("amount")] decimal Amount,
+    [property: JsonPropertyName("date")] DateTime? Date = null
 )
 {
     public DateTime EffectiveDate => Date ?? DateTime.Now;
