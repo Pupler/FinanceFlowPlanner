@@ -13,17 +13,17 @@ class Program
 
     public static List<Expense> expenses = [];
 
-    static void showMenu()
+    static void ShowMenu()
     {
         PrintColor("\n╔══════════════════════════════════════╗", ConsoleColor.Green);
         PrintColor("║       💸 FINANCE FLOW PLANNER        ║", ConsoleColor.Green);
         PrintColor("╚══════════════════════════════════════╝", ConsoleColor.Green);
         Console.WriteLine("\nMAIN MENU:");
-        Console.WriteLine("1. Add financial goal");
-        Console.WriteLine("2. View goals");
-        Console.WriteLine("3. Add expense");
-        Console.WriteLine("4. View expenses");
-        Console.WriteLine("5. Show analytics");
+        Console.WriteLine("1. 📝 Add financial goal");
+        Console.WriteLine("2. 🎯 View goals");
+        Console.WriteLine("3. 💸 Add expense");
+        Console.WriteLine("4. 📈 View expenses");
+        Console.WriteLine("5. 📊 Show analytics");
         Console.WriteLine("0. Exit");
         Console.Write("\nChoose option: ");
     }
@@ -303,7 +303,7 @@ class Program
 
         while (true)
         {
-            showMenu();
+            ShowMenu();
             string? input = Console.ReadLine();
 
             if (int.TryParse(input, out int choice))
