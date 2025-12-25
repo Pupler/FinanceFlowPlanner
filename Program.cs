@@ -24,7 +24,7 @@ class Program
         Console.WriteLine("3. 💸 Add expense");
         Console.WriteLine("4. 📈 View expenses");
         Console.WriteLine("5. 📊 Show analytics");
-        Console.WriteLine("0. Exit");
+        Console.WriteLine("0. 🚪 Exit");
         Console.Write("\nChoose option: ");
     }
 
@@ -222,6 +222,20 @@ class Program
         }
     }
 
+    static void ShowMotivation()
+    {
+        string[] quotes = 
+        {
+            "💰 Every hryvnia in your account is a step towards your dream!",
+            "🎯 You're on the right track!",
+            "💪 Financial discipline is a superpower!",
+            "📈 Small savings grow into big opportunities!",
+            "🔥 Consistency beats intensity in finances!",
+            "💎 Smart spending today = freedom tomorrow!"
+        };
+        PrintColor(quotes[new Random().Next(quotes.Length)], ConsoleColor.Cyan);
+    }
+
     static void ShowAnalytics()
     {
         Console.Clear();
@@ -300,6 +314,8 @@ class Program
 
         System.Globalization.CultureInfo.DefaultThreadCurrentUICulture =
         new System.Globalization.CultureInfo("de-DE");
+
+        ShowMotivation();
 
         while (true)
         {
