@@ -1,8 +1,9 @@
+using System.Data;
 using System.Text.Json;
 
 public static class JsonDataService
 {
-    private const string FileName = "data.json";
+    private const string FileName = "finance_data.json";
 
     public static void SaveData(List<FinancialGoal> goals, List<Expense> expenses)
     {
@@ -13,13 +14,24 @@ public static class JsonDataService
             Expenses: expenses
         );
 
-        string dataString = JsonSerializer.Serialize(data);
+        string dataSave = JsonSerializer.Serialize(data);
 
-        File.WriteAllText(FileName, dataString);
+        File.WriteAllText(FileName, dataSave);
     }
 
-    public static void LoadData()
+    public static (List<FinancialGoal>, List<Expense>) LoadData()
     {
-        
+        if (!File.Exists(FileName))
+        {
+            return ([], []);
+        }
+        else
+        {
+            string dataReadJson = File.ReadAllText(FileName);
+            
+            var dataRead = JsonSerializer.Deserialize<FinanceData>(dataReadJson);
+
+            return (dataRead.Goals, dataRead.Expenses);
+        }
     }
 }

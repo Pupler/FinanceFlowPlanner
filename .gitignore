@@ -418,5 +418,5 @@ FodyWeavers.xsd
 *.msp
 
 # Data files
-data.json
+finance_data.json
 *.json

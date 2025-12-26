@@ -61,6 +61,7 @@ class Program
             );
 
             goals.Add(goal);
+            JsonDataService.SaveData(goals, expenses);
             Console.Clear();
             PrintColor("✅ Goal was added!", ConsoleColor.Green);
         }
@@ -180,6 +181,7 @@ class Program
             );
 
             expenses.Add(expense);
+            JsonDataService.SaveData(goals, expenses);
             Console.Clear();
             PrintColor("✅ Expense was added!", ConsoleColor.Green);
         }
@@ -226,7 +228,7 @@ class Program
     {
         string[] quotes = 
         {
-            "💰 Every hryvnia in your account is a step towards your dream!",
+            "💰 Every euro in your account is a step towards your dream!",
             "🎯 You're on the right track!",
             "💪 Financial discipline is a superpower!",
             "📈 Small savings grow into big opportunities!",
@@ -317,7 +319,9 @@ class Program
 
         ShowMotivation();
 
-        JsonDataService.SaveData(goals, expenses);
+        var (loadedGoals, loadedExpenses) = JsonDataService.LoadData();
+        goals = loadedGoals;
+        expenses = loadedExpenses;
 
         while (true)
         {
