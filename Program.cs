@@ -317,6 +317,8 @@ class Program
 
         ShowMotivation();
 
+        JsonDataService.SaveData(goals, expenses);
+
         while (true)
         {
             ShowMenu();
