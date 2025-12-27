@@ -2,7 +2,7 @@
 
 class Program
 {
-    static void PrintColor(string text, ConsoleColor color)
+    public static void PrintColor(string text, ConsoleColor color)
     {
         Console.ForegroundColor = color;
         Console.WriteLine(text);
@@ -118,6 +118,7 @@ class Program
                         if (decimal.TryParse(sumInput, out decimal sum) && sum > 0)
                         {
                             goals[goalNum - 1] = goals[goalNum - 1].AddMoney(sum);
+                            JsonDataService.SaveData(goals, expenses);
                             Console.Clear();
                             PrintColor($"✅ {sum:C} was added!", ConsoleColor.Green);
                             return;
@@ -333,6 +334,7 @@ class Program
                 switch (choice)
                 {
                     case 0:
+                        JsonDataService.SaveData(goals, expenses);
                         Console.WriteLine("Closing program...");
                         return;
                     case 1:

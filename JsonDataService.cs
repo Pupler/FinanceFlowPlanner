@@ -1,4 +1,3 @@
-using System.Data;
 using System.Text.Json;
 
 public static class JsonDataService
@@ -7,16 +6,28 @@ public static class JsonDataService
 
     public static void SaveData(List<FinancialGoal> goals, List<Expense> expenses)
     {
-        FinanceData data = new(
-            Version: "1.0",
-            LastSaved: null,
-            Goals: goals,
-            Expenses: expenses
-        );
+        try
+        {
+            FinanceData data = new(
+                Version: "1.0",
+                LastSaved: null,
+                Goals: goals,
+                Expenses: expenses
+            );
 
-        string dataSave = JsonSerializer.Serialize(data);
+            string DataSave = JsonSerializer.Serialize(data, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+                IgnoreReadOnlyProperties = true
+            });
 
-        File.WriteAllText(FileName, dataSave);
+            File.WriteAllText(FileName, DataSave);   
+        }
+        catch (Exception ex)
+        {
+            Program.PrintColor($"⚠️ Error saving data: {ex.Message}", ConsoleColor.Red);
+        }
     }
 
     public static (List<FinancialGoal>, List<Expense>) LoadData()
@@ -25,13 +36,31 @@ public static class JsonDataService
         {
             return ([], []);
         }
-        else
+        
+        try
         {
-            string dataReadJson = File.ReadAllText(FileName);
-            
-            var dataRead = JsonSerializer.Deserialize<FinanceData>(dataReadJson);
+            string DataReadJson = File.ReadAllText(FileName);
 
-            return (dataRead.Goals, dataRead.Expenses);
+            if (string.IsNullOrWhiteSpace(DataReadJson))
+            {
+                return ([], []);
+            }
+
+            var DataRead = JsonSerializer.Deserialize<FinanceData>(DataReadJson);
+
+            return (DataRead?.Goals ?? [], DataRead?.Expenses ?? []);
+        }
+        catch (JsonException)
+        {
+            Program.PrintColor("⚠️ Corrupted save file. Starting fresh!", ConsoleColor.Yellow);
+
+            return ([], []);
+        }
+        catch (Exception ex)
+        {
+            Program.PrintColor($"⚠️ Error loading data: {ex.Message}", ConsoleColor.Red);
+
+            return ([], []);
         }
     }
 }
